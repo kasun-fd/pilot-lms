@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="col-12">
-    <div class="col-12 mt-2 mb-2 ps-2 pe-2">
+    <div class="col-12 mt-2 mb-2 ps-2 pe-2" *ngIf="loading">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <div class="col-12 pt-3 pb-3 ps-4 pe-4 text-white rounded-3 d-flex align-items-center justify-content-between"
@@ -8,7 +8,7 @@
          background-color: #4050B5;
          font-size: 18px;
          font-weight: 600;">
-      <button class="me-3" mat-icon-button aria-label="Go back" style="background-color: white">
+      <button routerLink="/dashboard/tcourses" mat-icon-button aria-label="Go back" style="background-color: white">
         <mat-icon style="color: black;">arrow_back</mat-icon>
       </button>
       <span>My Courses</span>
