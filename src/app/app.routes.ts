@@ -11,6 +11,8 @@ import {TcoursesComponent} from "./components/main/dashboard/inner/teacher/tcour
 import {TlessonsComponent} from "./components/main/dashboard/inner/teacher/tlessons/tlessons.component";
 import {TassignmentComponent} from "./components/main/dashboard/inner/teacher/tassignments/tassignment.component";
 import {SuccessPageComponent} from "./components/main/dashboard/inner/student/success-page/success-page.component";
+import {MyCoursesComponent} from "./components/main/dashboard/inner/teacher/my-courses/my-courses.component";
+import {NewCourseComponent} from "./components/main/dashboard/inner/teacher/new-course/new-course.component";
 
 export const routes: Routes = [
   {path:'',redirectTo:'/login', pathMatch:'full'},
@@ -28,7 +30,9 @@ export const routes: Routes = [
 
       {path:'tcourses',component:TcoursesComponent},
       {path:'tlessons',component:TlessonsComponent},
-      {path:'tassignments',component:TassignmentComponent}
+      {path:'tassignments',component:TassignmentComponent},
+      {path:'mycourses',component:MyCoursesComponent},
+      {path:'newcourse',component:NewCourseComponent}
 
     ]},
   {path:'**',component:NotFoundComponent}

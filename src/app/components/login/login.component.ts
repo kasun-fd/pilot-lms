@@ -106,9 +106,20 @@ export class LoginComponent implements OnInit{
           } else {
             this.findDocIdByField('teacher', 'uId', userCredential.user?.uid).subscribe(ids => {
               if (ids) {
+
+                this.firestore.collection('teacher').doc(ids).get().subscribe(doc=>{
+                  if (doc.exists){
+                    const expirationTime = new Date();
+                    expirationTime.setHours(expirationTime.getHours() + 1)
+                    // @ts-ignore
+                    this.cookieService.set('teacherId',btoa(doc.data().uId),expirationTime,'/');
+                  }else{
+                    console.log('No data');
+                  }
+                })
+
                 this.authTokenService.removeToken();
                 this.authTokenService.setToken(ids);
-                // console.log('teacher coming');
 
                 const expirationTime = new Date();
                 expirationTime.setHours(expirationTime.getHours() + 1); // Set expiration time to 1 hour from now
