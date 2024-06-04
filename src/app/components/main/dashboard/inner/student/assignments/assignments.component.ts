@@ -226,6 +226,7 @@ export class DialogContentExampleDialog {
   onChange(file:any){
     if (file.target.files[0].type === 'application/pdf') {
       this.snackBar.dismiss();
+      this.loading = false;
       this.selectedFile = file.target.files[0];
     } else {
       this.snackBar.open(
