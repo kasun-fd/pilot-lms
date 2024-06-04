@@ -1,0 +1,37 @@
+<div class="col-12 d-flex align-items-center justify-content-center h-100" style="background-image: url('assets/login-image/login-img.png')">
+  <div class="col-11 col-md-8 col-lg-5 d-flex align-items-center justify-content-center">
+    <form [formGroup]="form" (ngSubmit)="signUp()" class="col-12">
+      <div class="col-12 p-3 d-flex flex-column align-items-center rounded-3 justify-content-center bg-white">
+        <h2 class="fx-bold signup-header fs-3">Register</h2>
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" type="text" matInput placeholder="Ex. John Deo">
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" type="email" matInput placeholder="Ex. John@example.com">
+          </mat-form-field>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input formControlName="password" type="password" matInput placeholder="Ex. ******">
+          </mat-form-field>
+<!--          <div class="col-12">-->
+<!--            <p class=" teacher-text">If you are a teacher, Enter your code</p>-->
+<!--            <mat-form-field class="full-width" appearance="outline">-->
+<!--              <mat-label>Code</mat-label>-->
+<!--              <input formControlName="code" type="password" matInput>-->
+<!--            </mat-form-field>-->
+<!--          </div>-->
+          <div class="col-12 text-center mb-3 text-danger">
+            {{error}}
+          </div>
+          <button [disabled]="form.invalid || loading" type="submit" class="col-12 signup-button" mat-raised-button color="primary">Signup</button>
+          <div class="col-12 d-flex align-items-center justify-content-center mt-2">
+            <span>Already have an account? <a routerLink="/login">login</a></span>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

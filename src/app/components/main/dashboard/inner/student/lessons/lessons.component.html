@@ -1,0 +1,38 @@
+<div class="col-12 d-flex flex-column align-items-center justify-content-center p-3">
+
+    <div class="col-12 ps-4 pe-4">
+      <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    </div>
+
+  <div class="col-12 ps-4 pe-4 mt-3" *ngIf="have">
+
+    <div *ngIf="have" class="col-12 mb-3 d-flex align-items-center justify-content-start lesson-header rounded-3">
+      <span class="fs-5 fw-bold p-3 rounded-3 text-white">Lessons</span>
+    </div>
+
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let lessons of allLessons" (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" class="mb-3 rounded-3">
+        <mat-expansion-panel-header class="border">
+          <mat-panel-title>
+            {{ lessons.title }}
+          </mat-panel-title>
+          <mat-panel-description>
+            <!--    description     -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p class="mt-3 text-justify">{{lessons.content}}</p>
+        <div class="col-12 mt-2 d-flex align-items-center justify-content-end">
+          <button (click)="goToAssignments(lessons.lessonId,lessons.title)" mat-flat-button routerLink="/dashboard/assignments">See Assignments</button>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+
+  <div class="col-12 mt-1 d-flex align-items-start justify-content-center" *ngIf="haven">
+    <div class="col-12 d-flex align-items-center justify-content-center pt-3 pb-3 rounded-3 lesson-empty">
+      <span class="text-white fs-6 lesson-empty-text">You are not enrolled in any courses.</span>
+    </div>
+  </div>
+</div>

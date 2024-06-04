@@ -1,0 +1,33 @@
+.main button{
+  font-size: 12px;
+}
+
+.one{
+  border-radius: 10px 0 0 0;
+  background-color: #850F8D;
+}
+
+.one:hover{
+  opacity: 80%;
+}
+
+.two{
+  border-radius: 0 10px 0 0;
+  background-color: #C738BD;
+  transition: all 0.3s;
+}
+
+.two:hover{
+  opacity: 80%;
+}
+
+.three{
+  border-radius: 0 0 10px 10px;
+  background-color: #E49BFF;
+  transition: all 0.3s;
+}
+
+.three:hover{
+  opacity: 80%;
+}
+

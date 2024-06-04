@@ -1,0 +1,34 @@
+
+<div class="container-fluid">
+  <div class="col-12 d-flex align-items-center justify-content-center mb-3">
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <div class="col-12 text-center p-3 fs-6 rounded-3 text-white header-text-message" *ngIf="message_box">
+    You are enrolled in the <span class="fs-5">{{courseName}} Course</span>. You cannot enroll in another course until the course you are enrolled in is completed.
+  </div>
+  <div class="col-12 mt-3 d-flex align-items-start justify-content-center mb-3" *ngIf="showFirst">
+    <div class="col-12 d-flex align-items-center justify-content-center pt-3 pb-3 rounded-3 course-empty">
+      <span class="text-white fs-6 course-empty-text">You can apply for only one course at a time</span>
+    </div>
+  </div>
+  <div class="col-12 mt-3 mb-3 d-flex align-items-center justify-content-start course-header rounded-3">
+    <span class="fs-5 fw-bold p-3 rounded-3 text-white">Courses</span>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        <div *ngFor="let courses of allCourses" class="col-12 col-md-6 col-lg-4 p-2">
+          <div class="col-12 d-flex flex-column rounded-3 p-3 cart">
+            <div class="col-12 d-flex align-items-center justify-content-center text-center fs-6 text-white">
+              <div class="col-10 rounded-3 pt-2 pb-2 header-text">{{ courses.data.title }}</div>
+            </div>
+            <div class="col-12 mt-2 des">{{ courses.data.description }}</div>
+            <div class="col-12 mt-2 fs-6 lec">Lecturer&nbsp;:&nbsp;{{courses.data.teacherName}}</div>
+            <button [disabled]="have" (click)="openDialog(courses.data.courseid)" mat-raised-button class="col-12 col-sm-6 col-md-5 offset-sm-6 offset-md-7 mt-2 enroll">Enroll</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

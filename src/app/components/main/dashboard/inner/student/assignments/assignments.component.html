@@ -1,0 +1,35 @@
+<div class="col-12 d-flex flex-column align-items-center justify-content-center">
+  <div class="col-12 mt-1 p-3">
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div class="col-12 mt-1 d-flex align-items-start justify-content-center" *ngIf="haven">
+      <div class="col-12 d-flex align-items-center justify-content-center pt-3 pb-3 rounded-3 task-empty">
+        <span class="text-white fs-6 task-empty-text">No assignments yet.</span>
+      </div>
+    </div>
+    <div *ngIf="have" class="col-12 mt-3 mb-3 d-flex align-items-center justify-content-start assignment-header rounded-3">
+      <span class="fs-5 fw-bold p-3 rounded-3 text-white">{{titleText}} Assignments</span>
+    </div>
+    <table *ngIf="have" class="col-12 table table-striped">
+      <thead>
+      <tr>
+        <th class="col-3">Title</th>
+        <th class="col-6">Description</th>
+        <th class="col-1">Due Date</th>
+        <th class="col-2">Submit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tasks of allAssignments">
+        <td>{{ tasks.title }}</td>
+        <td>{{tasks.description}}</td>
+        <td>{{ tasks.dueDate }}</td>
+        <td><button [ngClass]="{'disabled': assignmentIdsToDisable.includes(tasks.assignmentId)}"
+                    [disabled]="assignmentIdsToDisable.includes(tasks.assignmentId)"
+                    mat-raised-button color="primary" class="green-button"
+                    (click)="openDialog(tasks.title,tasks.assignmentId)">{{assignmentIdsToDisable.includes(tasks.assignmentId)? 'Submitted' : 'Submit'}}</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

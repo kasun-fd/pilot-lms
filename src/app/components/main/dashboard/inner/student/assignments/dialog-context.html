@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>Upload Your Assignment</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="col-12 mb-3">
+    <div class="col-12 bg-danger pt-2 pb-2 mb-3 rounded-3 text-center fs-6 text-white" style="font-weight: 600;
+    font-size: 13px">
+      Remember that you can only submit once, so double check your assignment and then submit the assignment.
+    </div>
+    <div class="col-12 submit-text mb-3 pt-2 pb-2 rounded-3 text-center fs-6 text-white" style="font-weight: 600;
+    font-size: 13px;">
+      You can only upload PDF
+    </div>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="submitFile()">
+    <div class="col-12 mt-3 d-flex align-items-center justify-content-center">
+      <input formControlName="fileChooser" type="file" accept=".pdf"  (change)="onChange($event)" style="height: 40px">
+    </div>
+    <div class="col-12 d-flex align-items-center justify-content-center mt-3">
+      <button class="col-4" style="height: 50px;" mat-raised-button color="primary"
+              [disabled]="form.invalid || loading">Submit</button>
+    </div>
+    <div class="col-12 mt-3">
+          <mat-progress-bar *ngIf="loadingLine" value="{{uploadRate | async}}" mode="determinate"></mat-progress-bar>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
