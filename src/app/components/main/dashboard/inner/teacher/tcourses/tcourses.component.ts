@@ -40,7 +40,7 @@ export class TcoursesComponent implements OnInit{
 
     this.loading = true;
 
-    this.title.setTitle('Teacher Courses | Pilot LMS');
+    this.title.setTitle('All Courses | Pilot LMS');
 
     // Start the always working function
     this.intervalId = setInterval(() => {
@@ -60,7 +60,7 @@ export class TcoursesComponent implements OnInit{
   alwaysWorkingFunction() {
     // Function that will be executed continuously
     this.currentTime = new Date().toLocaleTimeString();
-    if (!this.cookieService.check('login')){
+    if (!this.cookieService.check('teacherId')){
       this.cookieService.deleteAll('/');
       this.router.navigate(["/login"]);
     }

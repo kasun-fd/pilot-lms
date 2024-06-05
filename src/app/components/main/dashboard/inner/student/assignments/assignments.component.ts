@@ -66,7 +66,7 @@ export class AssignmentsComponent implements OnInit , OnDestroy{
 
   loading = false;
 
-  allAssignments:any[] = [1];
+  allAssignments:any[] = [];
 
   currentTime: string = '';
 

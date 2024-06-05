@@ -19,17 +19,33 @@
         </button>
       </div>
     </div>
-    <div class="col-12 ps-3 pe-3 mt-3">
+    <div *ngIf="noContent" class="col-12 p-3 rounded-3 mt-3 d-flex align-items-center justify-content-center no-content">
+      You do not have your courses yet.
+    </div>
+    <div *ngIf="content" class="col-12 ps-3 pe-3 mt-3">
       <div class="row">
-        <div class="col-12 col-md-6 col-lg-4 p-2">
+        <div class="col-12 col-md-6 col-lg-4 p-2" *ngFor="let courses of myAllCourses">
           <div class="col-12 d-flex flex-column rounded-3 p-3 cart">
             <div class="col-12 d-flex align-items-center justify-content-center text-center fs-6 text-white">
-              <div class="col-10 rounded-3 pt-2 pb-2 header-text">Lorem ipsum dolor sit amet.</div>
+              <div class="col-10 rounded-3 pt-2 pb-2 header-text">{{courses.data.title}}</div>
             </div>
             <div class="col-12 mt-2 des">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium atque culpa dicta
-              distinctio, dolorem dolores eaque ex facere fugiat fugit harum ipsum itaque molestiae necessitatibus
-              nemo numquam odio odit omnis provident quam quasi quia unde vero voluptas, voluptate voluptates!
+              {{courses.data.description}}
+            </div>
+            <div class="col-12 mt-2">
+              <button class="offset-9 col-3 rounded-3" style="border: 1px solid black" mat-button [matMenuTriggerFor]="menu">
+                Actions
+              </button>
+              <mat-menu class="mt-2" #menu="matMenu">
+                <button routerLink="/dashboard/updatecourse/{{courses.id}}" mat-menu-item>
+                  <mat-icon>edit</mat-icon>
+                  <span style="font-size: 13px; font-weight: 600">Update Course</span>
+                </button>
+                <button class="mt-2" (click)="deleteCourse(courses.id)" mat-menu-item>
+                  <mat-icon>delete_sweep</mat-icon>
+                  <span style="font-size: 13px; font-weight: 600">Delete Course</span>
+                </button>
+              </mat-menu>
             </div>
           </div>
         </div>

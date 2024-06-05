@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit{
               private cookieService:CookieService,
               private title:Title
   ) {
+    this.cookieService.deleteAll();
   }
 
   ngOnInit(): void {
@@ -69,7 +70,7 @@ export class LoginComponent implements OnInit{
 
   signIn() {
     this.authTokenService.removeToken();
-    this.cookieService.deleteAll('/');
+    this.cookieService.deleteAll();
     this.error = '';
     this.loading = true;
     this.authService.login(this.form.value.email, this.form.value.password)
@@ -99,7 +100,7 @@ export class LoginComponent implements OnInit{
             const expirationTime = new Date();
             expirationTime.setHours(expirationTime.getHours() + 1) // Set expiration time to 1 hour from now
 
-            this.cookieService.set('login', 'Student', expirationTime);
+            this.cookieService.set('login', 'Student', expirationTime,'/');
 
             // console.log('student coming');
             this.router.navigate(["/dashboard"]);
@@ -124,7 +125,7 @@ export class LoginComponent implements OnInit{
                 const expirationTime = new Date();
                 expirationTime.setHours(expirationTime.getHours() + 1); // Set expiration time to 1 hour from now
 
-                this.cookieService.set('login', 'Teacher', expirationTime);
+                this.cookieService.set('login', 'Teacher', expirationTime,'/');
 
                 this.router.navigate(["/dashboard"]);
                 // this.form.reset();

@@ -11,8 +11,24 @@ import {TcoursesComponent} from "./components/main/dashboard/inner/teacher/tcour
 import {TlessonsComponent} from "./components/main/dashboard/inner/teacher/tlessons/tlessons.component";
 import {TassignmentComponent} from "./components/main/dashboard/inner/teacher/tassignments/tassignment.component";
 import {SuccessPageComponent} from "./components/main/dashboard/inner/student/success-page/success-page.component";
-import {MyCoursesComponent} from "./components/main/dashboard/inner/teacher/my-courses/my-courses.component";
-import {NewCourseComponent} from "./components/main/dashboard/inner/teacher/new-course/new-course.component";
+import {
+  MyCoursesComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/my-courses/my-courses.component";
+import {
+  NewCourseComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/new-course/new-course.component";
+import {
+  UpdateCourseComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/update-course/update-course.component";
+import {
+  NewLessonComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/new-lesson/new-lesson.component";
+import {
+  AddLessonComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/add-lesson/add-lesson.component";
+import {
+  UpdateLessonComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/update-lesson/update-lesson.component";
 
 export const routes: Routes = [
   {path:'',redirectTo:'/login', pathMatch:'full'},
@@ -21,6 +37,9 @@ export const routes: Routes = [
   {path:'dashboard', component:DashboardComponent,children:[
       {path:'',redirectTo:'/dashboard/home',pathMatch:'full'},
       {path:'home',component:HomeComponent},
+
+      // ==== students ====
+
       {path:'courses',component:CoursesComponent},
       {path:'lessons',component:LessonsComponent},
       {path:'assignments',component:AssignmentsComponent},
@@ -32,8 +51,11 @@ export const routes: Routes = [
       {path:'tlessons',component:TlessonsComponent},
       {path:'tassignments',component:TassignmentComponent},
       {path:'mycourses',component:MyCoursesComponent},
-      {path:'newcourse',component:NewCourseComponent}
-
+      {path:'newcourse',component:NewCourseComponent},
+      {path:'updatecourse/:id',component:UpdateCourseComponent},
+      {path:'newlesson/:id',component:NewLessonComponent},
+      {path:'addlesson/:id',component:AddLessonComponent},
+      {path:'updatelesson/:id',component:UpdateLessonComponent}
     ]},
   {path:'**',component:NotFoundComponent}
 ];
