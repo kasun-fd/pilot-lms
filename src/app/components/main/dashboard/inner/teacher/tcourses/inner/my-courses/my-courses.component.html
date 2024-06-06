@@ -32,20 +32,21 @@
             <div class="col-12 mt-2 des">
               {{courses.data.description}}
             </div>
-            <div class="col-12 mt-2">
-              <button class="offset-9 col-3 rounded-3" style="border: 1px solid black" mat-button [matMenuTriggerFor]="menu">
-                Actions
-              </button>
-              <mat-menu class="mt-2" #menu="matMenu">
-                <button routerLink="/dashboard/updatecourse/{{courses.id}}" mat-menu-item>
-                  <mat-icon>edit</mat-icon>
-                  <span style="font-size: 13px; font-weight: 600">Update Course</span>
-                </button>
-                <button class="mt-2" (click)="deleteCourse(courses.id)" mat-menu-item>
-                  <mat-icon>delete_sweep</mat-icon>
-                  <span style="font-size: 13px; font-weight: 600">Delete Course</span>
-                </button>
-              </mat-menu>
+            <div class="col-12 mt-2 d-flex align-items-center justify-content-between">
+                  <button routerLink="/dashboard/newlesson/{{courses.data.courseid}}" class="col-3 rounded-3" style="border: 1px solid black" mat-button>Lessons</button>
+                  <button class="col-3 rounded-3" style="border: 1px solid black" mat-button [matMenuTriggerFor]="menu">
+                    Actions
+                  </button>
+                  <mat-menu class="mt-2" #menu="matMenu">
+                    <button routerLink="/dashboard/updatecourse/{{courses.id}}/{{courses.data.courseid}}" mat-menu-item>
+                      <mat-icon>edit</mat-icon>
+                      <span style="font-size: 13px; font-weight: 600">Update Course</span>
+                    </button>
+                    <button class="mt-2" (click)="openDialog(courses.id,courses.data.courseid)" mat-menu-item>
+                      <mat-icon>delete_sweep</mat-icon>
+                      <span style="font-size: 13px; font-weight: 600">Delete Course</span>
+                    </button>
+                  </mat-menu>
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
-<div class="container-fluid">
+
+<div class="container-fluid" >
   <div class="col-12">
     <div class="col-12 mt-2 mb-2 ps-2 pe-2" *ngIf="loading">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -41,11 +42,11 @@
                   Actions
                 </button>
                 <mat-menu class="mt-2" #menu="matMenu">
-                  <button routerLink="/dashboard/updatelesson/{{selectedId}}" mat-menu-item>
+                  <button routerLink="/dashboard/updatelesson/{{lessons.id}}/{{selectedId}}" mat-menu-item>
                     <mat-icon>edit</mat-icon>
                     <span style="font-size: 13px; font-weight: 600">Update Lesson</span>
                   </button>
-                  <button class="mt-2" mat-menu-item>
+                  <button (click)="openDialog(selectedId,lessons.data.lessonId,lessons.id)" class="mt-2" mat-menu-item>
                     <mat-icon>delete_sweep</mat-icon>
                     <span style="font-size: 13px; font-weight: 600">Delete Lesson</span>
                   </button>

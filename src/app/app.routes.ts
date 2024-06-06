@@ -52,10 +52,10 @@ export const routes: Routes = [
       {path:'tassignments',component:TassignmentComponent},
       {path:'mycourses',component:MyCoursesComponent},
       {path:'newcourse',component:NewCourseComponent},
-      {path:'updatecourse/:id',component:UpdateCourseComponent},
+      {path:'updatecourse/:id/:courseId',component:UpdateCourseComponent},
       {path:'newlesson/:id',component:NewLessonComponent},
       {path:'addlesson/:id',component:AddLessonComponent},
-      {path:'updatelesson/:id',component:UpdateLessonComponent}
+      {path:'updatelesson/:id/:courseId',component:UpdateLessonComponent}
     ]},
   {path:'**',component:NotFoundComponent}
 ];

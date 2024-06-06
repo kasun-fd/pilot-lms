@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="col-12 mt-2 mb-2 ps-2 pe-2">
+  <div class="col-12 mt-2 mb-2 ps-2 pe-2" *ngIf="loading">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
   <div class="col-12 rounded-3 pt-3 pb-3 p-3 mt-2 mb-3 text-white d-flex align-items-center justify-content-start"
@@ -9,27 +9,25 @@
     <button routerLink="/dashboard/mycourses" class="me-3" mat-icon-button aria-label="Go back" style="background-color: white">
       <mat-icon style="color: black;">arrow_back</mat-icon>
     </button>
-    <span>Update Courses</span>
+    <span>Update {{courseTitle}} Courses</span>
   </div>
   <div class="col-12 d-flex flex-column align-items-center justify-content-center">
     <div class="col-11 rounded-3 p-3 mb-5" style="border: 5px solid #4050B5;">
-      <form>
         <div class="col-12">
           <mat-form-field class="col-12 mt-3" appearance="outline">
             <mat-label>Title</mat-label>
-            <input matInput placeholder="Enter the title here...">
+            <input #title matInput [value]="courseTitle">
           </mat-form-field>
         </div>
         <div class="col-12">
           <mat-form-field class="col-12" appearance="outline">
             <mat-label>Description</mat-label>
-            <textarea rows="10" matInput placeholder="Type here..."></textarea>
+            <textarea #des rows="10" matInput [value]="courseDes"></textarea>
           </mat-form-field>
         </div>
         <div class="col-12 mt-3">
-          <button mat-raised-button color="primary" style="font-size: 15px; height: 40px;" class="offset-9 col-3">UPDATE</button>
+          <button (click)="updateCourse(title,des)" mat-raised-button color="primary" style="font-size: 15px; height: 40px;" class="offset-9 col-3">UPDATE</button>
         </div>
-      </form>
     </div>
   </div>
 </div>

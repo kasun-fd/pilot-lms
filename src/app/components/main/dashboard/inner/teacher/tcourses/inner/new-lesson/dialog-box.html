@@ -1,0 +1,13 @@
+<div class="col-12 d-flex align-items-center justify-content-center" *ngIf="loadingCircle">
+  <img src="./assets/loading/lg.gif" alt="loading">
+</div>
+<div *ngIf="content">
+  <h2 mat-dialog-title>Delete file</h2>
+  <mat-dialog-content>
+    Would you like to delete this lesson?
+  </mat-dialog-content>
+  <mat-dialog-actions class="col-12 d-flex align-items-center justify-content-end gap-2">
+    <button mat-button mat-dialog-close>No</button>
+    <button (click)="deleteLesson()" mat-button mat-dialog-close cdkFocusInitial>Delete</button>
+  </mat-dialog-actions>
+</div>

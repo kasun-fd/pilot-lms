@@ -33,12 +33,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AddLessonComponent {
   loading = false;
   selectedId:any;
+  lessonId:any;
 
   form = new FormGroup({
-    index:new FormControl('',[
-      Validators.required,
-      Validators.minLength(1)
-    ]),
     title:new FormControl('',[
       Validators.required
     ]),
@@ -58,6 +55,12 @@ export class AddLessonComponent {
     this.activeRouter.paramMap.subscribe(res=>{
       this.selectedId = res.get('id');
     })
+
+    this.db.collection('lessons',ref=>
+      ref.where('courseId','==',this.selectedId)).get().subscribe(querySnapshot=>{
+        this.lessonId = querySnapshot.size;
+    })
+
   }
 
   allLesson(){
@@ -66,7 +69,7 @@ export class AddLessonComponent {
 
      let newLesson = {
        courseId:this.selectedId,
-       lessonId:this.form.value.index,
+       lessonId:this.lessonId+1,
        title:this.form.value.title,
        content:this.form.value.des
      }

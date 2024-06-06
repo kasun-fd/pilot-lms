@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -6,65 +6,91 @@ import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {MatProgressBar} from "@angular/material/progress-bar";
 import {NgIf} from "@angular/common";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-update-lesson',
   standalone: true,
-    imports: [
-        FormsModule,
-        MatButton,
-        MatFormField,
-        MatIcon,
-        MatIconButton,
-        MatInput,
-        MatLabel,
-        MatProgressBar,
-        NgIf,
-        ReactiveFormsModule,
-        RouterLink
-    ],
+  imports: [
+    FormsModule,
+    MatButton,
+    MatFormField,
+    MatIcon,
+    MatIconButton,
+    MatInput,
+    MatLabel,
+    MatProgressBar,
+    NgIf,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './update-lesson.component.html',
   styleUrl: './update-lesson.component.scss'
 })
-export class UpdateLessonComponent {
+export class UpdateLessonComponent implements OnInit {
   loading = false;
-  selectedId:any;
-  docsCount:any;
+  selectedId: any;
+  selectedCourseId:any;
+  lessonText: any;
+  description:any;
 
   form = new FormGroup({
-    index:new FormControl('',[
-      Validators.required
-    ]),
-    title:new FormControl('',[
-      Validators.required
-    ]),
-    des:new FormControl('',[
-      Validators.required
-    ])
+    title: new FormControl('', []),
+    des: new FormControl('', [])
   })
 
-  constructor(private activeRouter:ActivatedRoute,
-              private title:Title,
-              private db:AngularFirestore) {
+  constructor(private activeRouter: ActivatedRoute,
+              private title: Title,
+              private db: AngularFirestore,
+              private snackBar:MatSnackBar,
+              private router:Router) {
 
     this.title.setTitle('Update Lesson | Pilot LMS');
 
-    activeRouter.paramMap.subscribe(resp=>{
+    activeRouter.paramMap.subscribe(resp => {
       this.selectedId = resp.get('id');
-    })
-
-    this.db.collection('lessons').get().subscribe(querySnapshot=>{
-      querySnapshot.docs.map(doc=>{
-        // @ts-ignore
-        console.log(doc.data().length)
-      })
+      this.selectedCourseId = resp.get('courseId');
     })
 
   }
 
-  allLesson(){}
+  ngOnInit(): void {
+    this.loading = true;
+    this.db.collection('lessons').doc(this.selectedId).get().subscribe(doc => {
+      // @ts-ignore
+      this.lessonText = doc.data().title;
+      // @ts-ignore
+      this.description = doc.data().content
+      this.loading = false;
+    })
+  }
+
+  updateLesson(title: any, des: any) {
+
+    this.loading = true;
+
+    let updateLessonObj = {
+      title:title,
+      content:des
+    }
+
+    this.db.collection('lessons').doc(this.selectedId).update(updateLessonObj).then(()=>{
+      this.snackBar.open('Lesson Update Successful!','Close',{
+        duration:5000,
+        verticalPosition:'bottom',
+        horizontalPosition:'start',
+        direction:'ltr'
+      })
+
+      this.loading = false;
+
+      this.router.navigate(["/dashboard/newlesson/"+this.selectedCourseId]);
+
+    })
+
+  }
 
 }
