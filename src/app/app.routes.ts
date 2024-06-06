@@ -38,6 +38,9 @@ import {
 import {
   UpdateAssignmentComponent
 } from "./components/main/dashboard/inner/teacher/tcourses/inner/update-assignment/update-assignment.component";
+import {
+  SubmissionManageComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/submission-manage/submission-manage.component";
 
 export const routes: Routes = [
   {path:'',redirectTo:'/login', pathMatch:'full'},
@@ -67,7 +70,8 @@ export const routes: Routes = [
       {path:'updatelesson/:id/:courseId',component:UpdateLessonComponent},
       {path:'myassignments/:id/:courseId',component:MyAssignmentsComponent},
       {path:'newassignment/:id/:courseId',component:NewAssignmentComponent},
-      {path:'updateassignment/:doc/:id/:courseId',component:UpdateAssignmentComponent}
+      {path:'updateassignment/:doc/:id/:courseId',component:UpdateAssignmentComponent},
+      {path:'submissions/:id/:courseId/:assignmentId',component:SubmissionManageComponent}
     ]},
   {path:'**',component:NotFoundComponent}
 ];

@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatProgressBar} from "@angular/material/progress-bar";
-import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
@@ -45,7 +45,8 @@ import {MatProgressSpinner} from "@angular/material/progress-spinner";
     MatRowDef,
     MatHeaderRowDef,
     MatButton,
-    NgClass
+    NgClass,
+    DatePipe
   ],
   templateUrl: './assignments.component.html',
   styleUrl: './assignments.component.scss'
@@ -117,7 +118,8 @@ export class AssignmentsComponent implements OnInit , OnDestroy{
 
               if (atob(this.cookieService.get('lessonId'))){
                 this.db.collection('assignments', ref => ref.where('lessonId',
-                  '==', atob(this.cookieService.get('lessonId')))).get().subscribe(
+                  '==', atob(this.cookieService.get('lessonId')))
+                  .where('blockStatus','==','unBlocked')).get().subscribe(
                   querySnapshot => {
                     const documents = querySnapshot.docs.map(doc => doc.data());
                     if (documents.length !== 0){
@@ -267,6 +269,7 @@ export class DialogContentExampleDialog {
                 taskId:AssignmentsComponent.taskId,
                 submitId: Math.random().toString(36).substring(2,7),
                 stuId: doc.stuId,
+                email:doc.email,
                 file: res
               }
 

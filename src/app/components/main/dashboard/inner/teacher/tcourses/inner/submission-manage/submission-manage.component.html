@@ -1,0 +1,52 @@
+
+<div class="container-fluid" >
+  <div class="col-12">
+    <div class="col-12 mt-2 mb-2 ps-2 pe-2" *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="col-12 pt-3 pb-3 ps-4 pe-4 text-white rounded-3 d-flex align-items-center justify-content-between"
+         style="
+         background-color: #4050B5;
+         font-size: 18px;
+         font-weight: 600;">
+      <button routerLink="/dashboard/myassignments/{{selectedId}}/{{selectedCourseId}}" mat-icon-button aria-label="Go back" style="background-color: white">
+        <mat-icon style="color: black;">arrow_back</mat-icon>
+      </button>
+      <span>{{titleText}} Submissions</span>
+      <div *ngIf="unblocked" class="button-container">
+        <button (click)="changeStatus()" matTooltip="Block This Assignment" mat-mini-fab
+                style="background-color: white;">
+          <mat-icon style="color: black;">cancel</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="blocked" class="button-container">
+        <button (click)="changeStatusBlocked()" matTooltip="Unblocked this Assignment" mat-mini-fab
+                style="background-color: #F44336;">
+          <mat-icon style="color: black;">cancel</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="col-12 ps-3 pe-3 mt-3">
+      <div *ngIf="noContent" class="col-12 p-3 d-flex align-items-center text-white justify-content-center rounded-3"
+           style="background-color: #F44336;font-weight: 600;font-size: 15px;">
+        No Submissions yet.
+      </div>
+      <table *ngIf="tableView" class="col-12 table table-striped">
+        <thead>
+        <tr>
+          <th class="col-4">Student ID</th>
+          <th class="col-4">Student Email</th>
+          <th class="col-4">File</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let submissions of submissions">
+          <td>{{submissions.data.stuId}}</td>
+          <td>{{submissions.data.email}}</td>
+          <td><a target="_blank" mat-raised-button color="primary" href="{{submissions.data.file}}">Open File</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

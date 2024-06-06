@@ -48,15 +48,15 @@
                 <mat-menu class="mt-2" #menu="matMenu">
                   <button routerLink="/dashboard/updateassignment/{{assignments.id}}/{{assignments.data.lessonId}}/{{selectedCouseId}}" mat-menu-item>
                     <mat-icon>edit</mat-icon>
-                    <span style="font-size: 13px; font-weight: 600">Update Lesson</span>
+                    <span style="font-size: 13px; font-weight: 600">Update Assignment</span>
                   </button>
                   <button (click)="openDialog(selectedId,assignments.data.index,assignments.id)" class="mt-2" mat-menu-item>
                     <mat-icon>delete_sweep</mat-icon>
-                    <span style="font-size: 13px; font-weight: 600">Delete Lesson</span>
+                    <span style="font-size: 13px; font-weight: 600">Delete Assignment</span>
                   </button>
                 </mat-menu>
               </div>
-              <button mat-flat-button routerLink="/dashboard/myassignments/{{assignments.data.index}}">Manage Submissions</button>
+              <button mat-flat-button routerLink="/dashboard/submissions/{{selectedId}}/{{selectedCouseId}}/{{assignments.data.assignmentId}}">Manage Submissions</button>
             </div>
           </mat-expansion-panel>
         </mat-accordion>

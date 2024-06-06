@@ -101,6 +101,7 @@ export class NewAssignmentComponent implements OnInit{
         description:this.form.value.des,
         lessonId:this.selectedId,
         index:this.docCount+1,
+        blockStatus:'unBlocked',
         dueDate:(this.form.value.date)?.toString()
       }
 

@@ -22,7 +22,7 @@
       <tr *ngFor="let tasks of allAssignments">
         <td>{{ tasks.title }}</td>
         <td>{{tasks.description}}</td>
-        <td>{{ tasks.dueDate }}</td>
+        <td>{{ tasks.dueDate | date:'yyyy/MM/dd'}}</td>
         <td><button [ngClass]="{'disabled': assignmentIdsToDisable.includes(tasks.assignmentId)}"
                     [disabled]="assignmentIdsToDisable.includes(tasks.assignmentId)"
                     mat-raised-button color="primary" class="green-button"
