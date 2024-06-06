@@ -19,15 +19,21 @@
 
 <!-- ==== teachers ==== -->
 
-  <div *ngIf="teacher" class="col-2 d-flex align-items-center justify-content-center">
-    <button class="col-6 p-2" routerLink="/dashboard/tcourses" mat-flat-button color="primary">Courses</button>
+  <div *ngIf="teacher" style="background-color: #4050B5;font-size: 25px;font-weight: 600;"
+       class="col-6 rounded-3 d-flex align-items-center justify-content-between text-white pt-3 pb-3 ps-2 pe-2">
+<!--    <button class="col-6 p-2" routerLink="/dashboard/tcourses" mat-flat-button color="primary">Courses</button>-->
+
+    <div class="col-9 d-flex align-items-center justify-content-center">Pilot LMS</div>
+
+    <button routerLink="/dashboard/tcourses" class="col-3" style="font-size: 15px;font-weight: 600;" mat-raised-button>All Courses</button>
+
   </div>
-  <div *ngIf="teacher" class="col-2 d-flex align-items-center justify-content-center">
-    <button class="col-6 p-2" routerLink="/dashboard/tlessons" mat-flat-button color="primary">Lessons</button>
-  </div>
-  <div *ngIf="teacher" class="col-2 d-flex align-items-center justify-content-center">
-    <button class="col-6 p-2" routerLink="/dashboard/tassignments" mat-flat-button color="primary">Tasks</button>
-  </div>
+<!--  <div *ngIf="teacher" class="col-2 d-flex align-items-center justify-content-center">-->
+<!--    <button class="col-6 p-2" routerLink="/dashboard/tlessons" mat-flat-button color="primary">Lessons</button>-->
+<!--  </div>-->
+<!--  <div *ngIf="teacher" class="col-2 d-flex align-items-center justify-content-center">-->
+<!--    <button class="col-6 p-2" routerLink="/dashboard/tassignments" mat-flat-button color="primary">Tasks</button>-->
+<!--  </div>-->
   <div class="col-3 button-container d-flex align-items-center justify-content-center">
     <button (click)="logout()" mat-fab color="warn" aria-label="Example icon button with a home icon">
       <mat-icon>logout</mat-icon>

@@ -10,6 +10,7 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-update-lesson',
@@ -37,6 +38,10 @@ export class UpdateLessonComponent implements OnInit {
   lessonText: any;
   description:any;
 
+  currentTime: string = '';
+
+  private intervalId: any;
+
   form = new FormGroup({
     title: new FormControl('', []),
     des: new FormControl('', [])
@@ -46,11 +51,12 @@ export class UpdateLessonComponent implements OnInit {
               private title: Title,
               private db: AngularFirestore,
               private snackBar:MatSnackBar,
-              private router:Router) {
+              private router:Router,
+              private cookieService:CookieService) {
 
     this.title.setTitle('Update Lesson | Pilot LMS');
 
-    activeRouter.paramMap.subscribe(resp => {
+    this.activeRouter.paramMap.subscribe(resp => {
       this.selectedId = resp.get('id');
       this.selectedCourseId = resp.get('courseId');
     })
@@ -59,6 +65,12 @@ export class UpdateLessonComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+
+    // Start the always working function
+    this.intervalId = setInterval(() => {
+      this.alwaysWorkingFunction();
+    }, 1000);
+
     this.db.collection('lessons').doc(this.selectedId).get().subscribe(doc => {
       // @ts-ignore
       this.lessonText = doc.data().title;
@@ -66,6 +78,15 @@ export class UpdateLessonComponent implements OnInit {
       this.description = doc.data().content
       this.loading = false;
     })
+  }
+
+  alwaysWorkingFunction() {
+    // Function that will be executed continuously
+    this.currentTime = new Date().toLocaleTimeString();
+    if (!this.cookieService.check('teacherId')) {
+      this.cookieService.deleteAll('/');
+      this.router.navigate(["/login"]);
+    }
   }
 
   updateLesson(title: any, des: any) {

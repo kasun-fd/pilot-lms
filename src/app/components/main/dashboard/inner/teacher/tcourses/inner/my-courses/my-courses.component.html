@@ -38,6 +38,10 @@
                     Actions
                   </button>
                   <mat-menu class="mt-2" #menu="matMenu">
+                    <button (click)="openDialogEnd(courses.data.courseid)" class="mt-2"  mat-menu-item>
+                      <mat-icon>event_busy</mat-icon>
+                      <span style="font-size: 13px; font-weight: 600">End This Batch</span>
+                    </button>
                     <button routerLink="/dashboard/updatecourse/{{courses.id}}/{{courses.data.courseid}}" mat-menu-item>
                       <mat-icon>edit</mat-icon>
                       <span style="font-size: 13px; font-weight: 600">Update Course</span>

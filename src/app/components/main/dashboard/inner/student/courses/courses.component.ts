@@ -228,6 +228,8 @@ export class DialogContentExampleDialog {
         direction: 'ltr'
       })
 
+      window.location.reload();
+
     } catch (error) {
       console.error('Error updating document fields:', error);
       // Handle any errors that occur during the update

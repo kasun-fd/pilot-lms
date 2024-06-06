@@ -26,6 +26,7 @@ import {
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {routes} from "../../../../../../../../app.routes";
 import {reload} from "@angular/fire/auth";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-new-lesson',
@@ -62,11 +63,17 @@ export class NewLessonComponent implements OnInit {
   static globalLessonId: any;
   static globalLessonDocId: any;
 
+  currentTime: string = '';
+
+  private intervalId: any;
+
   constructor(private activeRouter: ActivatedRoute,
               private title: Title,
               private db: AngularFirestore,
-              public dialog: MatDialog) {
-    this.title.setTitle('Lessons | Pilot LMS');
+              public dialog: MatDialog,
+              private cookieService:CookieService,
+              private router:Router) {
+    this.title.setTitle('All Lessons | Pilot LMS');
     activeRouter.paramMap.subscribe(response => {
       this.selectedId = response.get('id');
     })
@@ -76,6 +83,11 @@ export class NewLessonComponent implements OnInit {
   public ngOnInit(): void {
 
     this.loading = true;
+
+    // Start the always working function
+    this.intervalId = setInterval(() => {
+      this.alwaysWorkingFunction();
+    }, 1000);
 
     this.db.collection('courses', ref =>
       ref.where('courseid', '==', this.selectedId)).get().subscribe(querySnapshot => {
@@ -93,7 +105,13 @@ export class NewLessonComponent implements OnInit {
     })
   }
 
-  goToAssignments(lessonId: any) {
+  alwaysWorkingFunction() {
+    // Function that will be executed continuously
+    this.currentTime = new Date().toLocaleTimeString();
+    if (!this.cookieService.check('teacherId')) {
+      this.cookieService.deleteAll('/');
+      this.router.navigate(["/login"]);
+    }
   }
 
   openDialog(courseId: any, lessonId: any, docId: any): void {
@@ -123,6 +141,7 @@ export class DialogAnimationsExampleDialog{
   docData: any[] = [];
   loadingCircle = false;
   content = true;
+
 
   constructor(public dialogRef: MatDialogRef<DialogAnimationsExampleDialog>,
               private db: AngularFirestore,

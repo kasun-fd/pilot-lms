@@ -8,6 +8,8 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Title} from "@angular/platform-browser";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-update-course',
@@ -34,10 +36,17 @@ export class UpdateCourseComponent implements OnInit {
   courseTitle:any;
   courseDes:any;
 
+  currentTime: string = '';
+
+  private intervalId: any;
+
   constructor(private activeRouter: ActivatedRoute,
               private db:AngularFirestore,
               private snackBar:MatSnackBar,
-              private router:Router) {
+              private router:Router,
+              private title:Title,
+              private cookieService:CookieService) {
+    this.title.setTitle('Update Course | Pilot LMS');
     this.activeRouter.paramMap.subscribe(resp => {
       this.selectedId = resp.get('id');
       this.selectedCourseId = resp.get('courseId');
@@ -46,6 +55,12 @@ export class UpdateCourseComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true;
+
+    // Start the always working function
+    this.intervalId = setInterval(() => {
+      this.alwaysWorkingFunction();
+    }, 1000);
+
         this.db.collection('courses',ref=>
           ref.where('courseid','==',this.selectedCourseId)).get()
           .subscribe(querySnapshot=>{
@@ -59,6 +74,15 @@ export class UpdateCourseComponent implements OnInit {
 
             })
         })
+  }
+
+  alwaysWorkingFunction() {
+    // Function that will be executed continuously
+    this.currentTime = new Date().toLocaleTimeString();
+    if (!this.cookieService.check('teacherId')) {
+      this.cookieService.deleteAll('/');
+      this.router.navigate(["/login"]);
+    }
   }
 
   updateCourse(title: any, des: any) {

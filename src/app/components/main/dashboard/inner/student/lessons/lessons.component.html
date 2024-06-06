@@ -23,7 +23,7 @@
         </mat-expansion-panel-header>
         <p class="mt-3 text-justify">{{lessons.content}}</p>
         <div class="col-12 mt-2 d-flex align-items-center justify-content-end">
-          <button (click)="goToAssignments(lessons.lessonId,lessons.title)" mat-flat-button routerLink="/dashboard/assignments">See Assignments</button>
+          <button (click)="goToAssignments(lessons.index,lessons.title)" mat-flat-button>See Assignments</button>
         </div>
       </mat-expansion-panel>
     </mat-accordion>

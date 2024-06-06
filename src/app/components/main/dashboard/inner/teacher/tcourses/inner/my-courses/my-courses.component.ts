@@ -10,11 +10,8 @@ import {Router, RouterLink} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {MatTooltip} from "@angular/material/tooltip";
 import {Title} from "@angular/platform-browser";
-import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {CookieService} from "ngx-cookie-service";
-import {doc} from "@angular/fire/firestore";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {map} from "rxjs";
 import {
   MatDialog,
   MatDialogActions,
@@ -24,8 +21,8 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {NewLessonComponent} from "../new-lesson/new-lesson.component";
-import {Dialog} from "@angular/cdk/dialog";
+import {AngularFirestore} from "@angular/fire/compat/firestore";
+import firebase from "firebase/compat/app";
 
 @Component({
   selector: 'app-my-courses',
@@ -133,6 +130,16 @@ export class MyCoursesComponent implements OnInit {
     });
 
   }
+
+  openDialogEnd(courseid: any) {
+    MyCoursesComponent.courseId = courseid;
+
+    // @ts-ignore
+    const dialogRef = this.dialog.open(EndCourseDialog, {
+      width: '400px',
+      courseid
+    });
+  }
 }
 
 @Component({
@@ -151,7 +158,7 @@ export class CourseDialogBox {
   content = true;
   docId: any
   courseId: any;
-  lessonsDocIds:any[] = [];
+  lessonsDocIds: any[] = [];
 
   constructor(public dialogRef: MatDialogRef<CourseDialogBox>,
               private db: AngularFirestore,
@@ -184,7 +191,7 @@ export class CourseDialogBox {
               this.content = true;
 
               window.location.reload();
-            }).catch(er=>{
+            }).catch(er => {
               console.log(er)
             });
           })
@@ -194,13 +201,86 @@ export class CourseDialogBox {
     });
   }
 
-  async deleteLessons(){
+  async deleteLessons() {
     for (const lessonsDocId of this.lessonsDocIds) {
       await this.db.collection('lessons').doc(lessonsDocId).delete()
-        .catch(er=>{
+        .catch(er => {
           console.log(er);
         });
     }
+  }
+
+}
+
+@Component({
+  selector: 'course-dialog-box',
+  templateUrl: 'end-batch-dialog.html',
+  standalone: true,
+  imports: [MatButtonModule,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogTitle,
+    MatDialogContent, NgIf],
+})
+export class EndCourseDialog {
+
+  loading = false;
+  content = true;
+  courseId: any;
+
+  constructor(public dialogRef: MatDialogRef<EndCourseDialog>,
+              private db: AngularFirestore,
+              private snackBar: MatSnackBar,
+              private router: Router) {
+    this.courseId = MyCoursesComponent.courseId;
+  }
+
+  endCourse() {
+
+    this.loading = true;
+    this.content = false;
+
+    this.db.collection('student', ref =>
+      ref.where('courseId', '==', this.courseId)).get()
+      .subscribe(querySnapshot => {
+        querySnapshot.forEach(docs => {
+          this.db.collection('submitted_assignments', ref =>
+            //   @ts-ignore
+            ref.where('stuId', '==', docs.data().stuId)).get().subscribe(query=>{
+              query.forEach(doc=>{
+                this.db.collection('submitted_assignments').doc(doc.id).delete().then(()=>{
+                  this.db.collection('student', ref =>
+                    ref.where('courseId', '==', this.courseId)).get()
+                    .subscribe(querySnapshot => {
+                      querySnapshot.forEach(doc => {
+                        doc.ref.update({
+                          courseId: firebase.firestore.FieldValue.delete(),
+                          dob: firebase.firestore.FieldValue.delete(),
+                          nic: firebase.firestore.FieldValue.delete()
+                        });
+                      })
+                      this.snackBar.open('Ended This Batch!', 'Close', {
+                        duration: 5000,
+                        direction: 'ltr',
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'start'
+                      })
+
+                      this.dialogRef.close();
+
+                      this.loading = false;
+                      this.content = true;
+
+                      window.location.reload();
+
+                    })
+                }).catch(er=>{
+                  console.log(er);
+                })
+              })
+          })
+        })
+      })
   }
 
 }

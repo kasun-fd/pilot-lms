@@ -130,6 +130,7 @@ export class LoginComponent implements OnInit{
                 this.router.navigate(["/dashboard"]);
                 // this.form.reset();
               } else {
+                this.error = 'Invalid user name or password.';
                 console.log('invalid user name or password.');
                 this.loading = false;
               }
@@ -137,6 +138,7 @@ export class LoginComponent implements OnInit{
           }
         })
       }).catch((error) => {
+      this.error = 'Invalid user name or password.';
       console.log(error);
       this.loading = false;
     })

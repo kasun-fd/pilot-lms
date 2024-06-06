@@ -62,7 +62,7 @@ export class NewCourseComponent implements OnInit {
               private router: Router,
               private db: AngularFirestore,
               private snackBar: MatSnackBar) {
-    title.setTitle('New Course | Pilot LMS');
+    this.title.setTitle('New Course | Pilot LMS');
   }
 
   ngOnInit(): void {
@@ -116,6 +116,7 @@ export class NewCourseComponent implements OnInit {
       this.db.collection('courses').add(newCourse).then((docRef) => {
         let firstLesson = {
           courseId:this.generatedId,
+          index:crypto.randomUUID(),
           lessonId:1,
           title:this.form.value.Lessontitle,
           content:this.form.value.Lessondes

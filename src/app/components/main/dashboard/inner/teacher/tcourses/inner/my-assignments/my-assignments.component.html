@@ -9,50 +9,54 @@
          background-color: #4050B5;
          font-size: 18px;
          font-weight: 600;">
-      <button routerLink="/dashboard/mycourses" mat-icon-button aria-label="Go back" style="background-color: white">
+      <button routerLink="/dashboard/newlesson/{{selectedCouseId}}" mat-icon-button aria-label="Go back" style="background-color: white">
         <mat-icon style="color: black;">arrow_back</mat-icon>
       </button>
-      <span>{{titleText}} Lessons</span>
+      <span>{{titleText}} Assignments</span>
       <div class="button-container">
-        <button routerLink="/dashboard/addlesson/{{selectedId}}" matTooltip="Add New lesson" mat-mini-fab
+        <button routerLink="/dashboard/newassignment/{{selectedId}}/{{selectedCouseId}}" matTooltip="Add New Assignment" mat-mini-fab
                 style="background-color: white">
           <mat-icon style="color: black;">add</mat-icon>
         </button>
       </div>
     </div>
     <div class="col-12 ps-3 pe-3 mt-3">
+      <div *ngIf="noContent" style="font-weight: 600;font-size: 15px;background-color: #F44336;"
+           class="col-12 d-flex align-items-center justify-content-center rounded-3 text-white p-3">
+        You have not given any assignments related to this lesson yet.
+      </div>
       <div class="row">
         <mat-accordion>
-          <mat-expansion-panel *ngFor="let lessons of allLessons" (opened)="panelOpenState = true"
+          <mat-expansion-panel *ngFor="let assignments of allAssignments" (opened)="panelOpenState = true"
                                (closed)="panelOpenState = false" class="mb-3 col-12 rounded-3">
             <mat-expansion-panel-header class="border">
               <mat-panel-title>
-                {{lessons.data.lessonId}}.
+                {{assignments.data.index}}.
                 &nbsp;&nbsp;
-                {{ lessons.data.title }}
+                {{ assignments.data.title }}
               </mat-panel-title>
               <mat-panel-description>
-                <!--    description     -->
+                    Due Date - {{assignments.data.dueDate | date:'yyyy/MM/dd'}}
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p class="mt-3 text-justify">{{lessons.data.content}}</p>
+            <p class="mt-3 text-justify">{{assignments.data.description}}</p>
             <div class="col-12 mt-5 d-flex align-items-center justify-content-between">
               <div class="col-2">
                 <button class="col-12 rounded-3" style="border: 1px solid black" mat-button [matMenuTriggerFor]="menu">
                   Actions
                 </button>
                 <mat-menu class="mt-2" #menu="matMenu">
-                  <button routerLink="/dashboard/updatelesson/{{lessons.id}}/{{selectedId}}" mat-menu-item>
+                  <button routerLink="/dashboard/updateassignment/{{assignments.id}}/{{assignments.data.lessonId}}/{{selectedCouseId}}" mat-menu-item>
                     <mat-icon>edit</mat-icon>
                     <span style="font-size: 13px; font-weight: 600">Update Lesson</span>
                   </button>
-                  <button (click)="openDialog(selectedId,lessons.data.lessonId,lessons.id)" class="mt-2" mat-menu-item>
+                  <button (click)="openDialog(selectedId,assignments.data.index,assignments.id)" class="mt-2" mat-menu-item>
                     <mat-icon>delete_sweep</mat-icon>
                     <span style="font-size: 13px; font-weight: 600">Delete Lesson</span>
                   </button>
                 </mat-menu>
               </div>
-              <button mat-flat-button routerLink="/dashboard/myassignments/{{lessons.data.index}}/{{selectedId}}">Manage Assignments</button>
+              <button mat-flat-button routerLink="/dashboard/myassignments/{{assignments.data.index}}">Manage Submissions</button>
             </div>
           </mat-expansion-panel>
         </mat-accordion>

@@ -106,6 +106,7 @@ export class LessonsComponent implements OnInit, OnDestroy {
     this.cookieService.delete('lessonTitle');
     this.cookieService.set('lessonId', btoa(lessonId), 365 * 10, '/');
     this.cookieService.set('lessonTitle', btoa(title), 365 * 10, '/');
+    this.router.navigate(["/dashboard/assignments"]);
   }
 
 }

@@ -29,6 +29,15 @@ import {
 import {
   UpdateLessonComponent
 } from "./components/main/dashboard/inner/teacher/tcourses/inner/update-lesson/update-lesson.component";
+import {
+  MyAssignmentsComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/my-assignments/my-assignments.component";
+import {
+  NewAssignmentComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/new-assignment/new-assignment.component";
+import {
+  UpdateAssignmentComponent
+} from "./components/main/dashboard/inner/teacher/tcourses/inner/update-assignment/update-assignment.component";
 
 export const routes: Routes = [
   {path:'',redirectTo:'/login', pathMatch:'full'},
@@ -55,7 +64,10 @@ export const routes: Routes = [
       {path:'updatecourse/:id/:courseId',component:UpdateCourseComponent},
       {path:'newlesson/:id',component:NewLessonComponent},
       {path:'addlesson/:id',component:AddLessonComponent},
-      {path:'updatelesson/:id/:courseId',component:UpdateLessonComponent}
+      {path:'updatelesson/:id/:courseId',component:UpdateLessonComponent},
+      {path:'myassignments/:id/:courseId',component:MyAssignmentsComponent},
+      {path:'newassignment/:id/:courseId',component:NewAssignmentComponent},
+      {path:'updateassignment/:doc/:id/:courseId',component:UpdateAssignmentComponent}
     ]},
   {path:'**',component:NotFoundComponent}
 ];

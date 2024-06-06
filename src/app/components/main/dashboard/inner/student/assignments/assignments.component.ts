@@ -265,7 +265,7 @@ export class DialogContentExampleDialog {
             this.downloadLink?.subscribe(res=>{
               let subObj = {
                 taskId:AssignmentsComponent.taskId,
-                subId: Math.random().toString(36).substring(2,7),
+                submitId: Math.random().toString(36).substring(2,7),
                 stuId: doc.stuId,
                 file: res
               }
