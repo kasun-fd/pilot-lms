@@ -130,9 +130,36 @@ export class LoginComponent implements OnInit{
                 this.router.navigate(["/dashboard"]);
                 // this.form.reset();
               } else {
-                this.error = 'Invalid user name or password.';
-                console.log('invalid user name or password.');
-                this.loading = false;
+                this.findDocIdByField('admin', 'adminId', userCredential.user?.uid).subscribe(ids => {
+                  if (ids) {
+
+                    this.firestore.collection('admin').doc(ids).get().subscribe(doc=>{
+                      if (doc.exists){
+                        const expirationTime = new Date();
+                        expirationTime.setHours(expirationTime.getHours() + 1)
+                        // @ts-ignore
+                        this.cookieService.set('adminId',btoa(doc.data().adminId),expirationTime,'/');
+                      }else{
+                        console.log('No data');
+                      }
+                    })
+
+                    this.authTokenService.removeToken();
+                    this.authTokenService.setToken(ids);
+
+                    const expirationTime = new Date();
+                    expirationTime.setHours(expirationTime.getHours() + 1); // Set expiration time to 1 hour from now
+
+                    this.cookieService.set('login', 'Admin', expirationTime,'/');
+
+                    this.router.navigate(["/dashboard"]);
+                    // this.form.reset();
+                  } else {
+                    this.error = 'Invalid user name or password.';
+                    console.log('invalid user name or password.');
+                    this.loading = false;
+                  }
+                })
               }
             })
           }

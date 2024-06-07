@@ -1,0 +1,45 @@
+
+<div class="container-fluid" >
+  <div class="col-12">
+    <div class="col-12 mt-2 mb-2 ps-2 pe-2" *ngIf="loading">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <div class="col-12 pt-3 pb-3 ps-4 pe-4 text-white rounded-3 d-flex align-items-center justify-content-between"
+         style="
+         background-color: #4050B5;
+         font-size: 18px;
+         font-weight: 600;">
+      <button routerLink="/dashboard/addteacher" mat-icon-button aria-label="Go back" style="background-color: white">
+        <mat-icon style="color: black;">arrow_back</mat-icon>
+      </button>
+      <span>All Teachers</span>
+      <div class="button-container">
+
+      </div>
+    </div>
+    <div class="col-12 ps-3 pe-3 mt-3">
+      <div *ngIf="noContent" class="col-12 p-3 d-flex align-items-center text-white justify-content-center rounded-3"
+           style="background-color: #F44336;font-weight: 600;font-size: 15px;">
+        No Teachers Yet.
+      </div>
+      <table *ngIf="tableView" class="col-12 table table-striped">
+        <thead>
+        <tr>
+          <th class="col-4">Teacher ID</th>
+          <th class="col-3">Teacher Name</th>
+          <th class="col-3">Teacher Email</th>
+          <th class="col-2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let All of allTeachers">
+          <td>{{All.data.uId}}</td>
+          <td>{{All.data.name}}</td>
+          <td>{{All.data.email}}</td>
+          <td><button (click)="deleteTeacher(All.id)" mat-raised-button color="warn">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

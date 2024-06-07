@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit , OnDestroy{
   selectedState: string | null | undefined;
   student:any;
   teacher:any;
+  admin:any;
   currentTime: string = '';
   private intervalId: any;
 
@@ -78,15 +79,26 @@ export class DashboardComponent implements OnInit , OnDestroy{
         if (exists){
           this.student = true;
           this.teacher = false;
+          this.admin = false;
         }else{
           this.documentExists('teacher', this.authTokenService.getToken())
             .subscribe(exists => {
               if (exists){
                 this.student = false;
                 this.teacher = true;
+                this.admin = false;
               }else{
-                  console.log('Invalid entry!');
-                  this.router.navigate(["/login"]);
+                this.documentExists('admin', this.authTokenService.getToken())
+                  .subscribe(exists => {
+                    if (exists){
+                      this.student = false;
+                      this.teacher = false;
+                      this.admin = true;
+                    }else{
+                      console.log('Invalid entry!');
+                      this.router.navigate(["/login"]);
+                    }
+                  });
               }
             });
         }

@@ -8,8 +8,6 @@ import {AssignmentsComponent} from "./components/main/dashboard/inner/student/as
 import {NotFoundComponent} from "./components/not-found/not-found.component";
 import {HomeComponent} from "./components/main/dashboard/inner/home/home.component";
 import {TcoursesComponent} from "./components/main/dashboard/inner/teacher/tcourses/tcourses.component";
-import {TlessonsComponent} from "./components/main/dashboard/inner/teacher/tlessons/tlessons.component";
-import {TassignmentComponent} from "./components/main/dashboard/inner/teacher/tassignments/tassignment.component";
 import {SuccessPageComponent} from "./components/main/dashboard/inner/student/success-page/success-page.component";
 import {
   MyCoursesComponent
@@ -41,6 +39,8 @@ import {
 import {
   SubmissionManageComponent
 } from "./components/main/dashboard/inner/teacher/tcourses/inner/submission-manage/submission-manage.component";
+import {AddTeacherComponent} from "./components/main/dashboard/inner/admin/add-teacher/add-teacher.component";
+import {AllTeachersComponent} from "./components/main/dashboard/inner/admin/all-teachers/all-teachers.component";
 
 export const routes: Routes = [
   {path:'',redirectTo:'/login', pathMatch:'full'},
@@ -60,8 +60,6 @@ export const routes: Routes = [
       // ==== teachers ====
 
       {path:'tcourses',component:TcoursesComponent},
-      {path:'tlessons',component:TlessonsComponent},
-      {path:'tassignments',component:TassignmentComponent},
       {path:'mycourses',component:MyCoursesComponent},
       {path:'newcourse',component:NewCourseComponent},
       {path:'updatecourse/:id/:courseId',component:UpdateCourseComponent},
@@ -71,7 +69,13 @@ export const routes: Routes = [
       {path:'myassignments/:id/:courseId',component:MyAssignmentsComponent},
       {path:'newassignment/:id/:courseId',component:NewAssignmentComponent},
       {path:'updateassignment/:doc/:id/:courseId',component:UpdateAssignmentComponent},
-      {path:'submissions/:id/:courseId/:assignmentId',component:SubmissionManageComponent}
+      {path:'submissions/:id/:courseId/:assignmentId',component:SubmissionManageComponent},
+
+      //   ===== admin =====
+
+      {path:'addteacher',component:AddTeacherComponent},
+      {path:'allteacherslist',component:AllTeachersComponent}
+
     ]},
   {path:'**',component:NotFoundComponent}
 ];
